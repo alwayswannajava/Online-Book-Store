@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 @Repository
 public class BookRepositoryImpl implements BookRepository {
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Override
     public Book save(Book book) {
@@ -36,6 +36,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("from Book", Book.class)
                     .getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't find all books", e);
         }
     }
 }
