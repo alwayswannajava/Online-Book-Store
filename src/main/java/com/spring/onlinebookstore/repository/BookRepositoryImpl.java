@@ -7,17 +7,13 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     private final EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    public BookRepositoryImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -47,6 +43,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("from Book", Book.class)
                     .getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't find all books", e);
         }
     }
 
@@ -54,6 +52,8 @@ public class BookRepositoryImpl implements BookRepository {
     public Optional<Book> findById(int id) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return Optional.ofNullable(entityManager.find(Book.class, id));
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't find book by id: " + id, e);
         }
     }
 }

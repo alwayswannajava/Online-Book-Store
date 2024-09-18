@@ -7,19 +7,14 @@ import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.BookRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-
-    @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
-        this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
-    }
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {

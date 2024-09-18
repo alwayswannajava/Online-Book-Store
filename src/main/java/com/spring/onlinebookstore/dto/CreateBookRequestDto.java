@@ -1,20 +1,20 @@
 package com.spring.onlinebookstore.dto;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
 public class CreateBookRequestDto {
-    @Nonnull
+    @NotBlank
     private String title;
-    @Nonnull
+    @NotBlank
     private String author;
-    @Column(unique = true)
-    @Nonnull
+    @Column(nullable = false, unique = true)
     private String isbn;
-    @Nonnull
+    @NotNull
     private BigDecimal price;
     private String description;
     private String coverImage;

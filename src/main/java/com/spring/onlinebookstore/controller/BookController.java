@@ -4,7 +4,7 @@ import com.spring.onlinebookstore.dto.BookDto;
 import com.spring.onlinebookstore.dto.CreateBookRequestDto;
 import com.spring.onlinebookstore.service.BookService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/books")
+@RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-
-    @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
 
     @GetMapping
     public List<BookDto> getAllBooks() {
