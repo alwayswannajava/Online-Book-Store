@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +21,10 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book save(Book book) {
+        EntityManager entityManager = null;
         EntityTransaction transaction = null;
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(book);
@@ -31,6 +34,10 @@ public class BookRepositoryImpl implements BookRepository {
                 transaction.rollback();
             }
             throw new DataProcessingException("Can't add book: " + book, e);
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
         return book;
     }
@@ -44,9 +51,9 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book getById(int id) {
+    public Optional<Book> findById(int id) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            return entityManager.find(Book.class, id);
+            return Optional.ofNullable(entityManager.find(Book.class, id));
         }
     }
 }

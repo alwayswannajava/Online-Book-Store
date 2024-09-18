@@ -9,5 +9,5 @@ public interface BookService {
 
     List<BookDto> findAll();
 
-    BookDto getById(int id);
+    BookDto findById(int id);
 }
