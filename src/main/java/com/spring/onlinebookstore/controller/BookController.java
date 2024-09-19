@@ -32,5 +32,4 @@ public class BookController {
     public BookDto addBook(@RequestBody CreateBookRequestDto bookRequestDto) {
         return bookService.save(bookRequestDto);
     }
-
 }

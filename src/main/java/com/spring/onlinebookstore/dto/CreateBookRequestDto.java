@@ -1,16 +1,17 @@
 package com.spring.onlinebookstore.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import org.hibernate.validator.constraints.ISBN;
 
 public record CreateBookRequestDto(
         @NotBlank
         String title,
         @NotBlank
         String author,
-        @Column(nullable = false, unique = true)
+        @NotBlank
+        @ISBN
         String isbn,
         @NotNull
         BigDecimal price,
