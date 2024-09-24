@@ -7,7 +7,6 @@ import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.BookRepository;
-import com.spring.onlinebookstore.repository.book.BookSpecificationBuilder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
