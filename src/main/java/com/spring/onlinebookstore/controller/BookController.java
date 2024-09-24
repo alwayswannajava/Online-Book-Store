@@ -2,7 +2,6 @@ package com.spring.onlinebookstore.controller;
 
 import com.spring.onlinebookstore.dto.BookDto;
 import com.spring.onlinebookstore.dto.CreateBookRequestDto;
-import com.spring.onlinebookstore.dto.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.service.BookService;
 import java.util.List;
@@ -46,10 +45,5 @@ public class BookController {
     public BookDto updateBook(@PathVariable long id,
                               @RequestBody UpdateBookRequestDto updateBookRequestDto) {
         return bookService.update(id, updateBookRequestDto);
-    }
-
-    @GetMapping("/search")
-    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
-        return bookService.search(searchBookRequestDto);
     }
 }
