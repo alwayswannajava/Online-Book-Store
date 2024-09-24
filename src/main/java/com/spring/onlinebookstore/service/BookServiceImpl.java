@@ -2,13 +2,16 @@ package com.spring.onlinebookstore.service;
 
 import com.spring.onlinebookstore.dto.BookDto;
 import com.spring.onlinebookstore.dto.CreateBookRequestDto;
+import com.spring.onlinebookstore.dto.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.BookRepository;
+import com.spring.onlinebookstore.repository.BookSpecificationBuilder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -48,30 +52,17 @@ public class BookServiceImpl implements BookService {
     public BookDto update(long id, UpdateBookRequestDto updateBookRequestDto) {
         Book book = bookRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find book by id: " + id));
-        update(book, updateBookRequestDto);
+        Book updatedBook = bookMapper.toModel(updateBookRequestDto, book);
+        bookRepository.save(updatedBook);
         return bookMapper.toDto(book);
     }
 
-    private void update(Book book, UpdateBookRequestDto updateBookRequestDto) {
-        if (updateBookRequestDto.title() != null) {
-            book.setTitle(updateBookRequestDto.title());
-        }
-        if (updateBookRequestDto.author() != null) {
-            book.setAuthor(updateBookRequestDto.author());
-        }
-        if (updateBookRequestDto.isbn() != null
-                && !book.getIsbn().equals(updateBookRequestDto.isbn())) {
-            book.setIsbn(updateBookRequestDto.isbn());
-        }
-        if (updateBookRequestDto.price() != null) {
-            book.setPrice(updateBookRequestDto.price());
-        }
-        if (updateBookRequestDto.description() != null) {
-            book.setDescription(updateBookRequestDto.description());
-        }
-        if (updateBookRequestDto.coverImage() != null) {
-            book.setCoverImage(updateBookRequestDto.coverImage());
-        }
-        bookRepository.save(book);
+    @Override
+    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
+        Specification<Book> bookSpecification = bookSpecificationBuilder
+                .build(searchBookRequestDto);
+        return bookRepository.findAll(bookSpecification).stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 }
