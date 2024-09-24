@@ -6,7 +6,7 @@ import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
-import com.spring.onlinebookstore.repository.BookRepository;
+import com.spring.onlinebookstore.repository.book.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
