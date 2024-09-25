@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IsbnSpecificationProvider implements SpecificationProvider<Book> {
-    private static final String ISBN_SPECIFICATION_NAME = "isbn";
 
     @Override
     public String getKey(String key) {
