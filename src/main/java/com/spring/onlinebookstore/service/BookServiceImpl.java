@@ -2,6 +2,7 @@ package com.spring.onlinebookstore.service;
 
 import com.spring.onlinebookstore.dto.BookDto;
 import com.spring.onlinebookstore.dto.CreateBookRequestDto;
+import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
@@ -30,9 +31,25 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto findById(int id) {
+    public BookDto findById(long id) {
         Book book = bookRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find book by id: " + id));
+        return bookMapper.toDto(book);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        Book book = bookRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Can't find book by id: " + id));
+        bookRepository.deleteById(book.getId());
+    }
+
+    @Override
+    public BookDto update(long id, UpdateBookRequestDto updateBookRequestDto) {
+        Book book = bookRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Can't find book by id: " + id));
+        Book updatedBook = bookMapper.toModel(updateBookRequestDto, book);
+        bookRepository.save(updatedBook);
         return bookMapper.toDto(book);
     }
 }
