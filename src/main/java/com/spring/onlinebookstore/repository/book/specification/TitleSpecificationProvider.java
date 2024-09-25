@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TitleSpecificationProvider implements SpecificationProvider<Book> {
+    private static final String TITLE_SPECIFICATION_NAME = "title";
+
     @Override
     public String getKey(String key) {
-        return "title";
+        return TITLE_SPECIFICATION_NAME;
     }
 
     public Specification<Book> getSpecification(String[] params) {
         return (root, query, criteriaBuilder)
-                -> root.get("title").in(Arrays.stream(params).toArray());
+                -> root.get(TITLE_SPECIFICATION_NAME)
+                .in(Arrays.stream(params).toArray());
     }
 }

@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IsbnSpecificationProvider implements SpecificationProvider<Book> {
+    private static final String ISBN_SPECIFICATION_NAME = "isbn";
+
     @Override
     public String getKey(String key) {
-        return "isbn";
+        return ISBN_SPECIFICATION_NAME;
     }
 
     public Specification<Book> getSpecification(String[] params) {
         return (root, query, criteriaBuilder)
-                -> root.get("isbn").in(Arrays.stream(params).toArray());
+                -> root.get(ISBN_SPECIFICATION_NAME)
+                .in(Arrays.stream(params).toArray());
     }
 }
