@@ -56,9 +56,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
+    public List<BookDto> search(SearchBookRequestDto params) {
         Specification<Book> bookSpecification = bookSpecificationBuilder
-                .build(searchBookRequestDto);
+                .build(params);
+
         return bookRepository.findAll(bookSpecification)
                 .stream()
                 .map(bookMapper::toDto)
