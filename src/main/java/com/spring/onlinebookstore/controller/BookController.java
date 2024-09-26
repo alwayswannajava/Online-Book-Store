@@ -2,6 +2,7 @@ package com.spring.onlinebookstore.controller;
 
 import com.spring.onlinebookstore.dto.BookDto;
 import com.spring.onlinebookstore.dto.CreateBookRequestDto;
+import com.spring.onlinebookstore.dto.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.service.BookService;
 import java.util.List;
@@ -27,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookDto getBookById(@PathVariable int id) {
+    public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
@@ -37,13 +38,18 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable int id) {
+    public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public BookDto updateBook(@PathVariable long id,
+    public BookDto updateBook(@PathVariable Long id,
                               @RequestBody UpdateBookRequestDto updateBookRequestDto) {
         return bookService.update(id, updateBookRequestDto);
+    }
+
+    @GetMapping("/search")
+    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
+        return bookService.search(searchBookRequestDto);
     }
 }
