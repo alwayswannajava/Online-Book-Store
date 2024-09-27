@@ -9,6 +9,7 @@ import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.book.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,8 +40,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteById(Long id) {
-        bookRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't find book by id: " + id));
         bookRepository.deleteById(id);
     }
 

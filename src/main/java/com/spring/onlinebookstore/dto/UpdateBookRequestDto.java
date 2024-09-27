@@ -7,13 +7,10 @@ import java.math.BigDecimal;
 import org.hibernate.validator.constraints.ISBN;
 
 public record UpdateBookRequestDto(
-        @NotNull
         @NotBlank
         String title,
-        @NotNull
         @NotBlank
         String author,
-        @NotNull
         @NotBlank
         @ISBN
         String isbn,
