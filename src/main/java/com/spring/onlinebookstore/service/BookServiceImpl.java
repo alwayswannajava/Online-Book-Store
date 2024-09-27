@@ -9,7 +9,6 @@ import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.book.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
