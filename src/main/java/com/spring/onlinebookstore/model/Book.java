@@ -32,7 +32,7 @@ public class Book {
     private BigDecimal price;
 
     @Column(columnDefinition = "tinyint(1) default 0", nullable = false)
-    private Boolean isDeleted = false;
+    private boolean isDeleted = false;
 
     private String description;
     private String coverImage;

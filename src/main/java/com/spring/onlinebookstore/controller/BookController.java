@@ -65,7 +65,9 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
-        return bookService.search(searchBookRequestDto);
+    @Tag(name = "get", description = "GET methods of Book APIs")
+    @Operation(summary = "Search books", description = "Search book")
+    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto, Pageable pageable) {
+        return bookService.search(searchBookRequestDto, pageable);
     }
 }
