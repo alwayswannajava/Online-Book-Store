@@ -1,7 +1,6 @@
 package com.spring.onlinebookstore.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import java.util.List;
@@ -22,10 +21,6 @@ public class OpenApiConfiguration {
     private String openApiUrl;
     @Value("${open.api.description}")
     private String description;
-    @Value("${open.api.author.credentials}")
-    private String credentials;
-    @Value("${open.api.author.email}")
-    private String email;
 
     @Bean
     public OpenAPI defineOpenApiInfo() {
@@ -33,15 +28,10 @@ public class OpenApiConfiguration {
         server.setUrl(openApiUrl);
         server.setDescription(description);
 
-        Contact myContact = new Contact();
-        myContact.setName(credentials);
-        myContact.setEmail(email);
-
         Info information = new Info()
                 .title(OPEN_API_TITLE)
                 .version(OPEN_API_VERSION)
-                .description(OPEN_API_DESCRIPTION)
-                .contact(myContact);
+                .description(OPEN_API_DESCRIPTION);
         return new OpenAPI().info(information).servers(List.of(server));
     }
 }
