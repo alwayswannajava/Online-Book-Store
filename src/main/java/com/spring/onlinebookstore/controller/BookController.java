@@ -5,9 +5,12 @@ import com.spring.onlinebookstore.dto.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
 import com.spring.onlinebookstore.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Online book store", description = "Endpoints for managing books")
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
@@ -24,26 +28,36 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public List<BookDto> getAllBooks() {
-        return bookService.findAll();
+    @Tag(name = "get", description = "GET methods of Book APIs")
+    @Operation(summary = "Get all books", description = "Get all books")
+    public List<BookDto> getAllBooks(Pageable pageable) {
+        return bookService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
+    @Tag(name = "get", description = "GET methods of Book APIs")
+    @Operation(summary = "Get book by ID", description = "Get book by ID")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping
+    @Tag(name = "post", description = "POST methods of Book APIs")
+    @Operation(summary = "Create a new book", description = "Create a new book")
     public BookDto addBook(@RequestBody @Valid CreateBookRequestDto bookRequestDto) {
         return bookService.save(bookRequestDto);
     }
 
     @DeleteMapping("/{id}")
+    @Tag(name = "delete", description = "DELETE methods of Book APIs")
+    @Operation(summary = "Delete book", description = "Delete book")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
     }
 
     @PutMapping("/{id}")
+    @Tag(name = "update", description = "UPDATE methods of Book APIs")
+    @Operation(summary = "Update book", description = "Update book")
     public BookDto updateBook(@PathVariable Long id,
                               @RequestBody
                               @Valid UpdateBookRequestDto updateBookRequestDto) {
@@ -51,7 +65,9 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto) {
-        return bookService.search(searchBookRequestDto);
+    @Tag(name = "get", description = "GET methods of Book APIs")
+    @Operation(summary = "Search books", description = "Search book")
+    public List<BookDto> search(SearchBookRequestDto searchBookRequestDto, Pageable pageable) {
+        return bookService.search(searchBookRequestDto, pageable);
     }
 }
