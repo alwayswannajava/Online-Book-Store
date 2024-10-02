@@ -1,9 +1,9 @@
 package com.spring.onlinebookstore.service;
 
-import com.spring.onlinebookstore.dto.BookDto;
-import com.spring.onlinebookstore.dto.CreateBookRequestDto;
-import com.spring.onlinebookstore.dto.SearchBookRequestDto;
-import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
+import com.spring.onlinebookstore.dto.book.BookDto;
+import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
+import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
+import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
