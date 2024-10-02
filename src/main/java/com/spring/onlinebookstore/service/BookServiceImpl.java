@@ -1,15 +1,16 @@
 package com.spring.onlinebookstore.service;
 
-import com.spring.onlinebookstore.dto.BookDto;
-import com.spring.onlinebookstore.dto.CreateBookRequestDto;
-import com.spring.onlinebookstore.dto.SearchBookRequestDto;
-import com.spring.onlinebookstore.dto.UpdateBookRequestDto;
+import com.spring.onlinebookstore.dto.book.BookDto;
+import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
+import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
+import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.book.BookRepository;
 import com.spring.onlinebookstore.repository.book.BookSpecificationBuilder;
 import java.util.List;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +24,7 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
+    @Transactional
     public BookDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
@@ -43,11 +45,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public BookDto update(Long id, UpdateBookRequestDto updateBookRequestDto) {
         Book book = bookRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find book by id: " + id));

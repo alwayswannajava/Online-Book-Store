@@ -1,6 +1,6 @@
 package com.spring.onlinebookstore.repository.book;
 
-import com.spring.onlinebookstore.dto.SearchBookRequestDto;
+import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.SpecificationBuilder;
 import com.spring.onlinebookstore.repository.SpecificationProvider;
