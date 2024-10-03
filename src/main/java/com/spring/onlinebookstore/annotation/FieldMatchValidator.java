@@ -17,6 +17,10 @@ public class FieldMatchValidator implements
         if (userRegistrationRequestDto == null) {
             return false;
         }
+        if (userRegistrationRequestDto.password() == null
+                || userRegistrationRequestDto.repeatPassword() == null) {
+            return false;
+        }
         return userRegistrationRequestDto.password()
                 .equals(userRegistrationRequestDto.repeatPassword());
     }

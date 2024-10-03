@@ -61,10 +61,10 @@ public class GlobalExceptionHandler {
         errors.add(ex.getMessage());
 
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.CONFLICT.value(),
                 LocalDateTime.now(),
                 errors);
-        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     private String getErrorMessage(ObjectError e) {

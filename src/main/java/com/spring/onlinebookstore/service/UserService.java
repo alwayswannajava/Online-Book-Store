@@ -1,7 +1,10 @@
 package com.spring.onlinebookstore.service;
 
-import com.spring.onlinebookstore.model.User;
+import com.spring.onlinebookstore.dto.user.UserRegistrationRequestDto;
+import com.spring.onlinebookstore.dto.user.UserResponse;
+import com.spring.onlinebookstore.exception.RegistrationException;
 
 public interface UserService {
-    User save(User user);
+    UserResponse register(UserRegistrationRequestDto userRegistrationRequestDto)
+            throws RegistrationException;
 }
