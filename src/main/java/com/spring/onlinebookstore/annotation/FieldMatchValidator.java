@@ -3,6 +3,7 @@ package com.spring.onlinebookstore.annotation;
 import com.spring.onlinebookstore.dto.user.UserRegistrationRequestDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 public class FieldMatchValidator implements
         ConstraintValidator<FieldMatch, UserRegistrationRequestDto> {
@@ -17,8 +18,8 @@ public class FieldMatchValidator implements
         if (userRegistrationRequestDto == null) {
             return false;
         }
-        if (userRegistrationRequestDto.password() == null
-                || userRegistrationRequestDto.repeatPassword() == null) {
+        if (!Objects.equals(userRegistrationRequestDto.password(),
+                userRegistrationRequestDto.repeatPassword())) {
             return false;
         }
         return userRegistrationRequestDto.password()
