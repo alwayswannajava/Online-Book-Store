@@ -1,0 +1,10 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  modify-shipping-address-type
+       author:  Mykhailo Kornukh
+       changes:
+         -  modifyDataType:
+              catalogName:  test
+              columnName:  shipping_address
+              newDataType:  varchar(255)
+              tableName:  users
