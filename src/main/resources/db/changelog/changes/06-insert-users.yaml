@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users
+      author: Mykhailo Kornukh
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "admin@example.com"
+              - column:
+                  name: password
+                  value: "$2a$12$ceiIkOXwvBsQtFxJw1AAU.50tvDDJ/fmQ83.Zc6c5LrT.v15IZNIG"
+              - column:
+                  name: first_name
+                  value: "admin"
+              - column:
+                  name: last_name
+                  value: "admin"
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "user@example.com"
+              - column:
+                  name: password
+                  value: "$2a$12$ceiIkOXwvBsQtFxJw1AAU.50tvDDJ/fmQ83.Zc6c5LrT.v15IZNIG"
+              - column:
+                  name: first_name
+                  value: "Mykhailo"
+              - column:
+                  name: last_name
+                  value: "Kornukh"
+              - column:
+                  name: role_id
+                  value: 2
