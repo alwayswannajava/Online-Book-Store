@@ -39,9 +39,3 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
-              - column:
-                  name: role_id
-                  type: bigint
-                  defaultValue: 2
-                  constraints:
-                    nullable: false
