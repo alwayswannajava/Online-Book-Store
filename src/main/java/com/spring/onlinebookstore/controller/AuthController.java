@@ -7,6 +7,8 @@ import com.spring.onlinebookstore.dto.user.UserResponse;
 import com.spring.onlinebookstore.exception.RegistrationException;
 import com.spring.onlinebookstore.security.AuthenticationService;
 import com.spring.onlinebookstore.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ public class AuthController {
 
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
+    @Tag(name = "post", description = "POST methods of Book APIs")
+    @Operation(summary = "Registration new user", description = "Registration new user")
     public UserResponse registration(@RequestBody
                                          @Valid
                                          UserRegistrationRequestDto userRegistrationRequestDto)
@@ -33,8 +37,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Tag(name = "post", description = "POST methods of Book APIs")
+    @Operation(summary = "Login user", description = "Login user")
     public UserLoginResponse login(@RequestBody @Valid UserLoginRequestDto userLoginRequestDto) {
         return authenticationService.authenticate(userLoginRequestDto);
     }
-
 }
