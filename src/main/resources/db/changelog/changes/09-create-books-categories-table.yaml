@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-books-categories-table
+      author: Mykhailo Kornukh
+      changes:
+        - createTable:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - createIndex:
+            indexName: idx_books_categories_book
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+        - createIndex:
+            indexName: idx_books_categories_category
+            tableName: books_categories
+            columns:
+              - column:
+                  name: category_id

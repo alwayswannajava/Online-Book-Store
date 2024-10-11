@@ -1,6 +1,7 @@
-package com.spring.onlinebookstore.service;
+package com.spring.onlinebookstore.service.book;
 
 import com.spring.onlinebookstore.dto.book.BookDto;
+import com.spring.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
@@ -68,6 +69,14 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll(bookSpecification, pageable)
                 .stream()
                 .map(bookMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoriesId(Long id) {
+        return bookRepository.findAllByCategoriesId(id)
+                .stream()
+                .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
 }

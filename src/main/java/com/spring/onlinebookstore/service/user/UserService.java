@@ -1,4 +1,4 @@
-package com.spring.onlinebookstore.service;
+package com.spring.onlinebookstore.service.user;
 
 import com.spring.onlinebookstore.dto.user.UserRegistrationRequestDto;
 import com.spring.onlinebookstore.dto.user.UserResponse;
