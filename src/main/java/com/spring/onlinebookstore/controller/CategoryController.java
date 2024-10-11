@@ -8,6 +8,7 @@ import com.spring.onlinebookstore.service.book.BookService;
 import com.spring.onlinebookstore.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,8 @@ public class CategoryController {
     @Tag(name = "post", description = "POST methods of Book APIs")
     @Operation(summary = "Create new category", description = "Create new category")
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryDto save(@RequestBody CreateCategoryRequestDto createCategoryRequestDto) {
+    public CategoryDto save(@RequestBody
+                                @Valid CreateCategoryRequestDto createCategoryRequestDto) {
         return categoryService.save(createCategoryRequestDto);
     }
 
@@ -57,7 +59,8 @@ public class CategoryController {
     @Operation(summary = "Update category", description = "Update category")
     @PreAuthorize("hasRole('ADMIN')")
     public CategoryDto update(@PathVariable Long id,
-                              @RequestBody UpdateCategoryRequestDto updateCategoryRequestDto) {
+                              @RequestBody @Valid
+                              UpdateCategoryRequestDto updateCategoryRequestDto) {
         return categoryService.update(id, updateCategoryRequestDto);
     }
 

@@ -30,9 +30,3 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-        - createIndex:
-            indexName: idx_category_name
-            tableName: categories
-            columns:
-              - column:
-                  name: name
