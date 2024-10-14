@@ -7,7 +7,6 @@ import com.spring.onlinebookstore.exception.EntityNotFoundException;
 import com.spring.onlinebookstore.mapper.CategoryMapper;
 import com.spring.onlinebookstore.model.Category;
 import com.spring.onlinebookstore.repository.category.CategoryRepository;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public CategoryDto save(CreateCategoryRequestDto createCategoryRequestDto) {
         Category category = categoryMapper.toModel(createCategoryRequestDto);
         return categoryMapper.toDto(categoryRepository.save(category));
@@ -52,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }
