@@ -10,7 +10,6 @@ import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.book.BookRepository;
 import com.spring.onlinebookstore.repository.book.BookSpecificationBuilder;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,7 +25,6 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
-    @Transactional
     public BookDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
@@ -47,13 +45,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public BookDto update(Long id, UpdateBookRequestDto updateBookRequestDto) {
         Book book = bookRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't find book by id: " + id));
