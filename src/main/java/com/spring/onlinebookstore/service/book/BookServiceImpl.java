@@ -1,6 +1,7 @@
-package com.spring.onlinebookstore.service;
+package com.spring.onlinebookstore.service.book;
 
 import com.spring.onlinebookstore.dto.book.BookDto;
+import com.spring.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
@@ -12,6 +13,7 @@ import com.spring.onlinebookstore.repository.book.BookSpecificationBuilder;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -69,5 +71,10 @@ public class BookServiceImpl implements BookService {
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();
+    }
+
+    @Override
+    public Page<BookDtoWithoutCategoryIds> findAllByCategoriesId(Long id, Pageable pageable) {
+        return bookRepository.findAllByCategoriesId(id, pageable);
     }
 }

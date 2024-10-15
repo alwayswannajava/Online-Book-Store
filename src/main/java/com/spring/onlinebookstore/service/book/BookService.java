@@ -1,10 +1,12 @@
-package com.spring.onlinebookstore.service;
+package com.spring.onlinebookstore.service.book;
 
 import com.spring.onlinebookstore.dto.book.BookDto;
+import com.spring.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BookService {
@@ -19,4 +21,6 @@ public interface BookService {
     BookDto update(Long id, UpdateBookRequestDto updateBookRequestDto);
 
     List<BookDto> search(SearchBookRequestDto searchBookRequestDto, Pageable pageable);
+
+    Page<BookDtoWithoutCategoryIds> findAllByCategoriesId(Long id, Pageable pageable);
 }

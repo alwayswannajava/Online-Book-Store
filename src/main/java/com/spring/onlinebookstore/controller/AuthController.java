@@ -6,7 +6,7 @@ import com.spring.onlinebookstore.dto.user.UserRegistrationRequestDto;
 import com.spring.onlinebookstore.dto.user.UserResponse;
 import com.spring.onlinebookstore.exception.RegistrationException;
 import com.spring.onlinebookstore.security.AuthenticationService;
-import com.spring.onlinebookstore.service.UserService;
+import com.spring.onlinebookstore.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
