@@ -2,7 +2,6 @@ package com.spring.onlinebookstore.mapper;
 
 import com.spring.onlinebookstore.config.MapperConfig;
 import com.spring.onlinebookstore.dto.book.BookDto;
-import com.spring.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
 import com.spring.onlinebookstore.model.Book;
@@ -11,6 +10,7 @@ import java.util.HashSet;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
@@ -19,8 +19,6 @@ public interface BookMapper {
     Book toModel(CreateBookRequestDto requestDto);
 
     Book toModel(UpdateBookRequestDto requestDto, @MappingTarget Book book);
-
-    BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
 
     @AfterMapping
     default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
@@ -43,5 +41,15 @@ public interface BookMapper {
         if (book.getCategories() != null) {
             book.setCategories(new HashSet<>(updateBookRequestDto.categoryIds()));
         }
+    }
+
+    @Named("bookById")
+    default Book bookById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Book book = new Book();
+        book.setId(id);
+        return book;
     }
 }

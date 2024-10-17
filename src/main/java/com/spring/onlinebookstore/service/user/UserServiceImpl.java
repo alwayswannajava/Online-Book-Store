@@ -9,6 +9,7 @@ import com.spring.onlinebookstore.model.RoleName;
 import com.spring.onlinebookstore.model.User;
 import com.spring.onlinebookstore.repository.role.RoleRepository;
 import com.spring.onlinebookstore.repository.user.UserRepository;
+import com.spring.onlinebookstore.service.cart.ShoppingCartService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserResponse register(UserRegistrationRequestDto userRegistrationRequestDto)
@@ -32,6 +34,8 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole(RoleName.ROLE_USER);
         user.setRoles(Set.of(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userMapper.toUserResponse(userRepository.save(user));
+        userRepository.save(user);
+        shoppingCartService.addShoppingCart(user);
+        return userMapper.toUserResponse(user);
     }
 }
