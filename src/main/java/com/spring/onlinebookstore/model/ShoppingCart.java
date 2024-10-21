@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -31,10 +29,8 @@ public class ShoppingCart {
     private Long id;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    @Fetch(FetchMode.JOIN)
     private User user;
     @OneToMany(mappedBy = "shoppingCart")
-    @Fetch(FetchMode.JOIN)
     private Set<CartItem> items = new HashSet<>();
     @Column(columnDefinition = "tinyint(1) default 0", nullable = false)
     private boolean isDeleted = false;

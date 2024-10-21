@@ -12,8 +12,8 @@ import com.spring.onlinebookstore.model.CartItem;
 import com.spring.onlinebookstore.model.ShoppingCart;
 import com.spring.onlinebookstore.model.User;
 import com.spring.onlinebookstore.repository.book.BookRepository;
-import com.spring.onlinebookstore.repository.cart.ShoppingCartRepository;
 import com.spring.onlinebookstore.repository.cartitem.CartItemRepository;
+import com.spring.onlinebookstore.repository.shoppingcart.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartDto getShoppingCart(Long userId) {
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByIdFetchUserAndCartItems(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find shopping cart by user id: " + userId
                 ));
@@ -44,7 +44,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartDto addItemToShoppingCart(CreateCartItemDto createCartItemDto, Long userId) {
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByIdFetchUserAndCartItems(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find shopping cart by user id: " + userId
                 ));

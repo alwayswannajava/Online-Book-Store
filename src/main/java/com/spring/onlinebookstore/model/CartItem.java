@@ -24,7 +24,6 @@ public class CartItem {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shopping_cart_id")
-    @Fetch(FetchMode.JOIN)
     private ShoppingCart shoppingCart;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_id", nullable = false)
