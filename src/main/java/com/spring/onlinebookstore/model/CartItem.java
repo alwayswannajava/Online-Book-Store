@@ -11,8 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "cart_items")
@@ -27,7 +25,6 @@ public class CartItem {
     private ShoppingCart shoppingCart;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_id", nullable = false)
-    @Fetch(FetchMode.JOIN)
     private Book book;
     @Column(nullable = false)
     private int quantity;

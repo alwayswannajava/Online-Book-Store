@@ -36,7 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void addShoppingCart(User user) {
+    public void createShoppingCart(User user) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         shoppingCartRepository.save(shoppingCart);
@@ -48,9 +48,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find shopping cart by user id: " + userId
                 ));
-        Book book = bookRepository.findById(createCartItemDto.getBookId())
+        Book book = bookRepository.findById(createCartItemDto.bookId())
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find book by book id: " + createCartItemDto.getBookId()
+                        "Can't find book by book id: " + createCartItemDto.bookId()
                 ));
         CartItem cartItem = cartItemMapper.toModel(createCartItemDto);
         cartItem.setBook(book);

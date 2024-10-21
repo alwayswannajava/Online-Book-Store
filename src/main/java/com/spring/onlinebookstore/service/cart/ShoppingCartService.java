@@ -9,7 +9,7 @@ import com.spring.onlinebookstore.model.User;
 public interface ShoppingCartService {
     ShoppingCartDto getShoppingCart(Long userId);
 
-    void addShoppingCart(User user);
+    void createShoppingCart(User user);
 
     ShoppingCartDto addItemToShoppingCart(CreateCartItemDto createCartItemDto, Long userId);
 
