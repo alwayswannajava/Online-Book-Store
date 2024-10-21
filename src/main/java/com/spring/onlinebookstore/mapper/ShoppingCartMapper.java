@@ -23,7 +23,7 @@ public interface ShoppingCartMapper {
     default void setCartItems(@MappingTarget ShoppingCartDto shoppingCartDto,
                               ShoppingCart shoppingCart) {
         Set<CartItemDto> shoppingCartDtoItems = new HashSet<>();
-        for (CartItem cartItem : shoppingCart.getItems()) {
+        for (CartItem cartItem : shoppingCart.getCartItems()) {
             CartItemDto cartItemDto = new CartItemDto(cartItem.getId(), cartItem.getBook().getId(),
                     cartItem.getBook().getTitle(), cartItem.getQuantity());
             shoppingCartDtoItems.add(cartItemDto);

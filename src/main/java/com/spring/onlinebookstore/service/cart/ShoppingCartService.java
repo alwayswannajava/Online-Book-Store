@@ -2,7 +2,6 @@ package com.spring.onlinebookstore.service.cart;
 
 import com.spring.onlinebookstore.dto.cart.CreateCartItemDto;
 import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoRequest;
-import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoResponse;
 import com.spring.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
 import com.spring.onlinebookstore.model.User;
 
@@ -13,8 +12,9 @@ public interface ShoppingCartService {
 
     ShoppingCartDto addItemToShoppingCart(CreateCartItemDto createCartItemDto, Long userId);
 
-    UpdateCartItemDtoResponse updateCartItem(UpdateCartItemDtoRequest updateCartItemDtoRequest,
-                                             Long cartItemId);
+    ShoppingCartDto updateCartItem(Long cartItemId,
+                                   UpdateCartItemDtoRequest updateCartItemRequest,
+                                   Long userId);
 
-    void removeItemFromShoppingCart(Long cartItemId);
+    void removeItemFromShoppingCart(Long cartItemId, Long userId);
 }

@@ -2,7 +2,6 @@ package com.spring.onlinebookstore.controller;
 
 import com.spring.onlinebookstore.dto.cart.CreateCartItemDto;
 import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoRequest;
-import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoResponse;
 import com.spring.onlinebookstore.dto.shoppingcart.ShoppingCartDto;
 import com.spring.onlinebookstore.model.User;
 import com.spring.onlinebookstore.service.cart.ShoppingCartService;
@@ -56,11 +55,13 @@ public class ShoppingCartController {
     @Operation(summary = "Update book in shopping cart",
             description = "Update book in user's shopping cart")
     @PreAuthorize("hasRole('USER')")
-    public UpdateCartItemDtoResponse updateCartItem(@RequestBody @Valid
-                                                        UpdateCartItemDtoRequest
-                                                                updateCartItemRequest,
-                                                    @PathVariable Long id) {
-        return shoppingCartService.updateCartItem(updateCartItemRequest, id);
+    public ShoppingCartDto updateCartItem(@PathVariable Long id,
+                                          @RequestBody
+                                          @Valid UpdateCartItemDtoRequest updateCartItemRequest,
+                                          Authentication authentication) {
+        return shoppingCartService.updateCartItem(id,
+                updateCartItemRequest,
+                getUserId(authentication));
     }
 
     @DeleteMapping("/items/{id}")
@@ -69,8 +70,8 @@ public class ShoppingCartController {
             description = "Delete book from user's shopping cart")
     @PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCartItem(@PathVariable Long id) {
-        shoppingCartService.removeItemFromShoppingCart(id);
+    public void deleteCartItem(@PathVariable Long id, Authentication authentication) {
+        shoppingCartService.removeItemFromShoppingCart(id, getUserId(authentication));
     }
 
     private Long getUserId(Authentication authentication) {

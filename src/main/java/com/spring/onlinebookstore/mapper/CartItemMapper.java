@@ -4,7 +4,6 @@ import com.spring.onlinebookstore.config.MapperConfig;
 import com.spring.onlinebookstore.dto.cart.CartItemDto;
 import com.spring.onlinebookstore.dto.cart.CreateCartItemDto;
 import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoRequest;
-import com.spring.onlinebookstore.dto.cart.UpdateCartItemDtoResponse;
 import com.spring.onlinebookstore.model.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,6 +21,4 @@ public interface CartItemMapper {
     CartItem toModel(UpdateCartItemDtoRequest updateCartItemDtoRequest,
                      @MappingTarget CartItem cartItem);
 
-    @Mapping(source = "book.id", target = "bookId")
-    UpdateCartItemDtoResponse toResponse(CartItem cartItem);
 }
