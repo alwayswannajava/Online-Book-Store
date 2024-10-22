@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13-create-order-items-table
+      author: Mykhailo Kornukh
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: order_items
+            constraintName: fk_order_items_order
+            referencedColumnNames: id
+            referencedTableName: orders
+
+        - addForeignKeyConstraint:
+            baseColumnNames: book_id
+            baseTableName: order_items
+            constraintName: fk_order_items_book
+            referencedColumnNames: id
+            referencedTableName: books
