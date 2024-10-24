@@ -5,20 +5,18 @@ import com.spring.onlinebookstore.dto.order.OrderDto;
 import com.spring.onlinebookstore.dto.order.OrderItemDto;
 import com.spring.onlinebookstore.dto.order.UpdateOrderRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
+import com.spring.onlinebookstore.exception.ShoppingCartIsEmptyException;
 import com.spring.onlinebookstore.mapper.OrderItemMapper;
 import com.spring.onlinebookstore.mapper.OrderMapper;
 import com.spring.onlinebookstore.model.CartItem;
 import com.spring.onlinebookstore.model.Order;
 import com.spring.onlinebookstore.model.OrderItem;
 import com.spring.onlinebookstore.model.ShoppingCart;
-import com.spring.onlinebookstore.model.Status;
-import com.spring.onlinebookstore.model.User;
 import com.spring.onlinebookstore.repository.order.OrderRepository;
 import com.spring.onlinebookstore.repository.orderitem.OrderItemRepository;
 import com.spring.onlinebookstore.repository.shoppingcart.ShoppingCartRepository;
-import com.spring.onlinebookstore.repository.user.UserRepository;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,23 +29,24 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final UserRepository userRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
 
     @Override
-    public OrderDto createOrder(CreateOrderRequestDto createOrderRequestDto, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User with id " + userId + " not found")
-        );
+    @Transactional
+    public OrderDto createOrder(CreateOrderRequestDto createOrderRequestDto, Long userId)
+            throws ShoppingCartIsEmptyException {
+
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId).orElseThrow(
-                () -> new EntityNotFoundException("Shopping cart with id " + userId + " not found")
+                () -> new EntityNotFoundException("Shopping cart with id " + userId + "not found")
         );
+        if (shoppingCart.getCartItems().isEmpty()) {
+            throw new ShoppingCartIsEmptyException("Shopping cart doesn't have any items. You "
+                    + "can't make an order. Please add some items to shopping cart");
+        }
         Order order = new Order();
-        order.setUser(user);
-        order.setStatus(Status.PENDING);
-        order.setOrderDate(LocalDateTime.now());
+        order.setUser(shoppingCart.getUser());
         order.setOrderItems(loadOrderItems(shoppingCart));
         setOrderToOrderItems(order.getOrderItems(), order);
         order.setTotal(new BigDecimal(calculateTotal(shoppingCart)));
@@ -57,21 +56,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<OrderDto> getOrderHistory(Long userId, Pageable pageable) {
-        userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User's orders with id " + userId + " not found")
-        );
         return orderRepository.findAllByUserId(userId, pageable)
                 .map(orderMapper::toDto);
     }
 
     @Override
+    @Transactional
     public OrderDto updateOrder(UpdateOrderRequestDto updateOrderRequestDto,
                                 Long orderId,
                                 Long userId) {
 
-        userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User's order with id " + userId + " not found")
-        );
         Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new EntityNotFoundException("Order with id " + orderId + " not found")
         );
@@ -81,9 +75,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Set<OrderItemDto> findAllOrderItemsByOrderId(Long orderId, Long userId) {
-        userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException("User's order with id " + userId + " not found")
-        );
         Order order = orderRepository.findByIdAndUserId(orderId, userId)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Order with id " + orderId + " not found")

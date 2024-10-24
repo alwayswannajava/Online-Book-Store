@@ -4,12 +4,14 @@ import com.spring.onlinebookstore.dto.order.CreateOrderRequestDto;
 import com.spring.onlinebookstore.dto.order.OrderDto;
 import com.spring.onlinebookstore.dto.order.OrderItemDto;
 import com.spring.onlinebookstore.dto.order.UpdateOrderRequestDto;
+import com.spring.onlinebookstore.exception.ShoppingCartIsEmptyException;
 import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
-    OrderDto createOrder(CreateOrderRequestDto createOrderRequestDto, Long userId);
+    OrderDto createOrder(CreateOrderRequestDto createOrderRequestDto, Long userId)
+            throws ShoppingCartIsEmptyException;
 
     Page<OrderDto> getOrderHistory(Long userId, Pageable pageable);
 

@@ -4,6 +4,7 @@ import com.spring.onlinebookstore.dto.order.CreateOrderRequestDto;
 import com.spring.onlinebookstore.dto.order.OrderDto;
 import com.spring.onlinebookstore.dto.order.OrderItemDto;
 import com.spring.onlinebookstore.dto.order.UpdateOrderRequestDto;
+import com.spring.onlinebookstore.exception.ShoppingCartIsEmptyException;
 import com.spring.onlinebookstore.model.User;
 import com.spring.onlinebookstore.service.order.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,7 +39,8 @@ public class OrderController {
     @Operation(summary = "Create order", description = "Create order")
     @PreAuthorize("hasRole('USER')")
     public OrderDto createOrder(@RequestBody @Valid CreateOrderRequestDto createOrderRequestDto,
-                                Authentication authentication) {
+                                Authentication authentication)
+            throws ShoppingCartIsEmptyException {
         return orderService.createOrder(createOrderRequestDto, getUserById(authentication));
     }
 
