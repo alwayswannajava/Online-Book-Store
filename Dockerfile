@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine as builder
+FROM --platform=linux/arm64 openjdk:17-jdk-slim as builder
 WORKDIR application
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
