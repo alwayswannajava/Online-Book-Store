@@ -5,7 +5,7 @@ import com.spring.onlinebookstore.dto.order.OrderDto;
 import com.spring.onlinebookstore.dto.order.OrderItemDto;
 import com.spring.onlinebookstore.dto.order.UpdateOrderRequestDto;
 import com.spring.onlinebookstore.exception.EntityNotFoundException;
-import com.spring.onlinebookstore.exception.ShoppingCartIsEmptyException;
+import com.spring.onlinebookstore.exception.OrderProcessingException;
 import com.spring.onlinebookstore.mapper.OrderItemMapper;
 import com.spring.onlinebookstore.mapper.OrderMapper;
 import com.spring.onlinebookstore.model.CartItem;
@@ -36,13 +36,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto createOrder(CreateOrderRequestDto createOrderRequestDto, Long userId)
-            throws ShoppingCartIsEmptyException {
+            throws OrderProcessingException {
 
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId).orElseThrow(
                 () -> new EntityNotFoundException("Shopping cart with id " + userId + "not found")
         );
         if (shoppingCart.getCartItems().isEmpty()) {
-            throw new ShoppingCartIsEmptyException("Shopping cart doesn't have any items. You "
+            throw new OrderProcessingException("Shopping cart doesn't have any items. You "
                     + "can't make an order. Please add some items to shopping cart");
         }
         Order order = new Order();

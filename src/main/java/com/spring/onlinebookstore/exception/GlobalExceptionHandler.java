@@ -67,9 +67,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(ShoppingCartIsEmptyException.class)
+    @ExceptionHandler(OrderProcessingException.class)
     public ResponseEntity<Object> handleShoppingCartIsEmptyException(
-            ShoppingCartIsEmptyException ex) {
+            OrderProcessingException ex) {
         List<String> errors = new ArrayList<>();
         errors.add(ex.getMessage());
 
