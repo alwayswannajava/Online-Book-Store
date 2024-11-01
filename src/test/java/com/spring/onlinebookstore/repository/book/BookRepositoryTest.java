@@ -1,14 +1,15 @@
 package com.spring.onlinebookstore.repository.book;
 
-import static com.spring.onlinebookstore.Constants.CORRECT_BOOK_ID;
-import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.INCORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_BOOK_ID;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.INCORRECT_CATEGORY_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.spring.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.model.Category;
 import com.spring.onlinebookstore.repository.category.CategoryRepository;
+import com.spring.onlinebookstore.util.TestUtil;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,7 @@ class BookRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        pageRequest = PageRequest.of(0, 10);
+        pageRequest = TestUtil.createPageRequest();
     }
 
     @Test

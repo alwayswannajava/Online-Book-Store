@@ -1,21 +1,18 @@
 package com.spring.onlinebookstore.service.book;
 
-import static com.spring.onlinebookstore.Constants.BOOK_AUTHOR;
-import static com.spring.onlinebookstore.Constants.BOOK_CATEGORIES;
-import static com.spring.onlinebookstore.Constants.BOOK_COVER_IMAGE;
-import static com.spring.onlinebookstore.Constants.BOOK_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.BOOK_ISBN;
-import static com.spring.onlinebookstore.Constants.BOOK_PRICE;
-import static com.spring.onlinebookstore.Constants.BOOK_TITLE;
-import static com.spring.onlinebookstore.Constants.CORRECT_BOOK_ID;
-import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE;
-import static com.spring.onlinebookstore.Constants.INCORRECT_BOOK_ID;
-import static com.spring.onlinebookstore.Constants.INCORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.SEARCH_BOOK_REQUEST_DTO_AUTHOR;
-import static com.spring.onlinebookstore.Constants.SEARCH_BOOK_REQUEST_DTO_TITLE;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_PRICE;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_TITLE;
+import static com.spring.onlinebookstore.util.Constants.BOOK_AUTHOR;
+import static com.spring.onlinebookstore.util.Constants.BOOK_COVER_IMAGE;
+import static com.spring.onlinebookstore.util.Constants.BOOK_DESCRIPTION;
+import static com.spring.onlinebookstore.util.Constants.BOOK_ISBN;
+import static com.spring.onlinebookstore.util.Constants.BOOK_PRICE;
+import static com.spring.onlinebookstore.util.Constants.BOOK_TITLE;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_BOOK_ID;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE;
+import static com.spring.onlinebookstore.util.Constants.INCORRECT_BOOK_ID;
+import static com.spring.onlinebookstore.util.Constants.INCORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.SEARCH_BOOK_REQUEST_DTO_AUTHOR;
+import static com.spring.onlinebookstore.util.Constants.SEARCH_BOOK_REQUEST_DTO_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -33,7 +30,7 @@ import com.spring.onlinebookstore.mapper.BookMapper;
 import com.spring.onlinebookstore.model.Book;
 import com.spring.onlinebookstore.repository.book.BookRepository;
 import com.spring.onlinebookstore.repository.book.BookSpecificationBuilder;
-import java.util.HashSet;
+import com.spring.onlinebookstore.util.TestUtil;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,46 +68,15 @@ class BookServiceTest {
 
     @BeforeEach
     void setUp() {
-        createBookRequestDto = new CreateBookRequestDto(
-                BOOK_TITLE,
-                BOOK_AUTHOR,
-                BOOK_ISBN,
-                BOOK_PRICE,
-                BOOK_DESCRIPTION,
-                BOOK_COVER_IMAGE,
-                BOOK_CATEGORIES
-        );
+        createBookRequestDto = TestUtil.createBookRequestDtoWithBlankCategory();
 
-        updateBookRequestDto = new UpdateBookRequestDto(
-                UPDATE_BOOK_REQUEST_DTO_TITLE,
-                BOOK_AUTHOR,
-                BOOK_ISBN,
-                UPDATE_BOOK_REQUEST_DTO_PRICE,
-                BOOK_DESCRIPTION,
-                BOOK_COVER_IMAGE,
-                BOOK_CATEGORIES
-        );
+        updateBookRequestDto = TestUtil.createUpdateBookRequestDtoWithBlankCategory();
 
-        book = new Book();
-        book.setId(CORRECT_BOOK_ID);
-        book.setTitle(BOOK_TITLE);
-        book.setAuthor(BOOK_AUTHOR);
-        book.setIsbn(BOOK_ISBN);
-        book.setPrice(BOOK_PRICE);
-        book.setDescription(BOOK_DESCRIPTION);
-        book.setCoverImage(BOOK_COVER_IMAGE);
-        book.setCategories(new HashSet<>(BOOK_CATEGORIES));
+        book = TestUtil.createBook();
 
-        bookDto = new BookDto();
-        bookDto.setId(CORRECT_BOOK_ID);
-        bookDto.setTitle(BOOK_TITLE);
-        bookDto.setAuthor(BOOK_AUTHOR);
-        bookDto.setIsbn(BOOK_ISBN);
-        bookDto.setPrice(BOOK_PRICE);
-        bookDto.setDescription(BOOK_DESCRIPTION);
-        bookDto.setCoverImage(BOOK_COVER_IMAGE);
+        bookDto = TestUtil.createBookDtoWithoutCategory();
 
-        pageRequest = PageRequest.of(0, 10);
+        pageRequest = TestUtil.createPageRequest();
     }
 
     @Test

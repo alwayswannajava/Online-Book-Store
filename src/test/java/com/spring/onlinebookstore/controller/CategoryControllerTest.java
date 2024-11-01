@@ -1,14 +1,12 @@
 package com.spring.onlinebookstore.controller;
 
-import static com.spring.onlinebookstore.Constants.CATEGORY_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.CATEGORY_NAME;
-import static com.spring.onlinebookstore.Constants.CATEGORY_URL;
-import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.CREATE_CATEGORY_REQUEST_DTO_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.CREATE_CATEGORY_REQUEST_DTO_NAME;
-import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_NAME;
 import static com.spring.onlinebookstore.controller.BookControllerTest.mockMvc;
+import static com.spring.onlinebookstore.util.Constants.CATEGORY_URL;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.CREATE_CATEGORY_REQUEST_DTO_DESCRIPTION;
+import static com.spring.onlinebookstore.util.Constants.CREATE_CATEGORY_REQUEST_DTO_NAME;
+import static com.spring.onlinebookstore.util.Constants.UPDATE_BOOK_REQUEST_DTO_DESCRIPTION;
+import static com.spring.onlinebookstore.util.Constants.UPDATE_CATEGORY_REQUEST_DTO_NAME;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,8 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.onlinebookstore.dto.category.CategoryDto;
-import com.spring.onlinebookstore.dto.category.CreateCategoryRequestDto;
-import com.spring.onlinebookstore.dto.category.UpdateCategoryRequestDto;
+import com.spring.onlinebookstore.util.TestUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,9 +41,6 @@ import org.testcontainers.shaded.org.apache.commons.lang3.builder.EqualsBuilder;
 class CategoryControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
-    private CategoryDto categoryDto;
-    private CreateCategoryRequestDto createCategoryRequestDto;
-    private UpdateCategoryRequestDto updateCategoryRequestDto;
 
     @BeforeEach
     void setUp(
@@ -63,7 +57,6 @@ class CategoryControllerTest {
                     new ClassPathResource("database/scripts/category/add-category-test-data.sql")
             );
         }
-        initDto();
     }
 
     @AfterEach
@@ -81,7 +74,7 @@ class CategoryControllerTest {
     @DisplayName("Create category")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void createCategory_CreateCategoryRequestDto_ReturnsCategoryDto() throws Exception {
-        String requestJson = objectMapper.writeValueAsString(createCategoryRequestDto);
+        String requestJson = objectMapper.writeValueAsString(TestUtil.createCategoryRequestDto());
         MvcResult result = mockMvc.perform(
                         post(CATEGORY_URL)
                                 .content(requestJson)
@@ -109,7 +102,7 @@ class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<CategoryDto> expected = List.of(categoryDto);
+        List<CategoryDto> expected = List.of(TestUtil.createCategoryDto());
 
         List<CategoryDto> actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -129,7 +122,7 @@ class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        CategoryDto expected = categoryDto;
+        CategoryDto expected = TestUtil.createCategoryDto();
 
         CategoryDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -154,7 +147,9 @@ class CategoryControllerTest {
     @DisplayName("Update category by id")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void updateCategoryById_CategoryExists_ReturnsCategoryDto() throws Exception {
-        String requestJson = objectMapper.writeValueAsString(updateCategoryRequestDto);
+        String requestJson = objectMapper.writeValueAsString(
+                TestUtil.createUpdateCategoryRequestDto());
+
         MvcResult result = mockMvc.perform(
                         put(CATEGORY_URL + "/{id}", CORRECT_CATEGORY_ID)
                                 .content(requestJson)
@@ -173,42 +168,18 @@ class CategoryControllerTest {
     }
 
     private CategoryDto setUpdateCategoryRequestDtoToDto() {
-
-        CategoryDto expected = new CategoryDto(
+        return new CategoryDto(
                 CORRECT_CATEGORY_ID,
-                updateCategoryRequestDto.name(),
-                updateCategoryRequestDto.description()
+                UPDATE_CATEGORY_REQUEST_DTO_NAME,
+                UPDATE_BOOK_REQUEST_DTO_DESCRIPTION
         );
-
-        return expected;
     }
 
     private CategoryDto setCreateCategoryRequestDtoToDto() {
-
-        CategoryDto expected = new CategoryDto(
+        return new CategoryDto(
                 CORRECT_CATEGORY_ID,
-                createCategoryRequestDto.name(),
-                createCategoryRequestDto.description()
-        );
-
-        return expected;
-    }
-
-    private void initDto() {
-        categoryDto = new CategoryDto(
-                CORRECT_CATEGORY_ID,
-                CATEGORY_NAME,
-                CATEGORY_DESCRIPTION
-        );
-
-        createCategoryRequestDto = new CreateCategoryRequestDto(
                 CREATE_CATEGORY_REQUEST_DTO_NAME,
                 CREATE_CATEGORY_REQUEST_DTO_DESCRIPTION
-        );
-
-        updateCategoryRequestDto = new UpdateCategoryRequestDto(
-                UPDATE_CATEGORY_REQUEST_DTO_NAME,
-                UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION
         );
     }
 }

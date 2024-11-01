@@ -1,12 +1,8 @@
 package com.spring.onlinebookstore.service.book;
 
-import static com.spring.onlinebookstore.Constants.CATEGORY_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.CATEGORY_NAME;
-import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE;
-import static com.spring.onlinebookstore.Constants.INCORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_NAME;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.util.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE;
+import static com.spring.onlinebookstore.util.Constants.INCORRECT_CATEGORY_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
@@ -21,6 +17,7 @@ import com.spring.onlinebookstore.mapper.CategoryMapper;
 import com.spring.onlinebookstore.model.Category;
 import com.spring.onlinebookstore.repository.category.CategoryRepository;
 import com.spring.onlinebookstore.service.category.CategoryServiceImpl;
+import com.spring.onlinebookstore.util.TestUtil;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +31,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 @ExtendWith(MockitoExtension.class)
-public class CategoryServiceTest {
+class CategoryServiceTest {
 
     @Mock
     private CategoryRepository categoryRepository;
@@ -54,34 +51,17 @@ public class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        createCategoryRequestDto = new CreateCategoryRequestDto(
-                CATEGORY_NAME,
-                CATEGORY_DESCRIPTION
-        );
+        createCategoryRequestDto = TestUtil.createCategoryRequestDtoWithCategoryParams();
 
-        updateCategoryRequestDto = new UpdateCategoryRequestDto(
-                UPDATE_CATEGORY_REQUEST_DTO_NAME,
-                UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION
-        );
+        updateCategoryRequestDto = TestUtil.createUpdateCategoryRequestDto();
 
-        category = new Category();
-        category.setId(CORRECT_CATEGORY_ID);
-        category.setName(CATEGORY_NAME);
-        category.setDescription(CATEGORY_DESCRIPTION);
+        category = TestUtil.createCategory();
 
-        categoryDto = new CategoryDto(
-                CORRECT_CATEGORY_ID,
-                CATEGORY_NAME,
-                CATEGORY_DESCRIPTION
-        );
+        categoryDto = TestUtil.createCategoryDto();
 
-        updateCategoryDto = new CategoryDto(
-                CORRECT_CATEGORY_ID,
-                UPDATE_CATEGORY_REQUEST_DTO_NAME,
-                UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION
-        );
+        updateCategoryDto = TestUtil.createUpdateCategoryDto();
 
-        pageRequest = PageRequest.of(0, 10);
+        pageRequest = TestUtil.createPageRequest();
     }
 
     @Test

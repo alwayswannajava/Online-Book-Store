@@ -1,20 +1,7 @@
 package com.spring.onlinebookstore.controller;
 
-import static com.spring.onlinebookstore.Constants.BOOK_AUTHOR;
-import static com.spring.onlinebookstore.Constants.BOOK_COVER_IMAGE;
-import static com.spring.onlinebookstore.Constants.BOOK_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.BOOK_ISBN;
-import static com.spring.onlinebookstore.Constants.BOOK_PRICE;
-import static com.spring.onlinebookstore.Constants.BOOK_TITLE;
-import static com.spring.onlinebookstore.Constants.BOOK_URL;
-import static com.spring.onlinebookstore.Constants.CORRECT_BOOK_ID;
-import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_AUTHOR;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_COVER_IMAGE;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_DESCRIPTION;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_ISBN;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_PRICE;
-import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_TITLE;
+import static com.spring.onlinebookstore.util.Constants.BOOK_URL;
+import static com.spring.onlinebookstore.util.Constants.CORRECT_BOOK_ID;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,8 +15,7 @@ import com.spring.onlinebookstore.dto.book.BookDto;
 import com.spring.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.spring.onlinebookstore.dto.book.SearchBookRequestDto;
 import com.spring.onlinebookstore.dto.book.UpdateBookRequestDto;
-import com.spring.onlinebookstore.model.Category;
-import java.math.BigDecimal;
+import com.spring.onlinebookstore.util.TestUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -56,9 +42,6 @@ class BookControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-    private BookDto bookDto;
-    private CreateBookRequestDto createBookRequestDto;
-    private UpdateBookRequestDto updateBookRequestDto;
 
     @BeforeEach
     void setUp(
@@ -75,7 +58,6 @@ class BookControllerTest {
                     new ClassPathResource("database/scripts/book/add-book-test-data.sql")
             );
         }
-        initDto();
     }
 
     @AfterEach
@@ -93,7 +75,7 @@ class BookControllerTest {
     @DisplayName("Create book")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void createBook_CreateBookRequestDto_ReturnsBookDto() throws Exception {
-        String requestJson = objectMapper.writeValueAsString(createBookRequestDto);
+        String requestJson = objectMapper.writeValueAsString(TestUtil.createBookRequestDto());
         MvcResult result = mockMvc.perform(
                 post(BOOK_URL)
                         .content(requestJson)
@@ -102,7 +84,7 @@ class BookControllerTest {
                 .andReturn();
 
         BookDto expected = new BookDto();
-        setCreateBookRequestDtoToDto(createBookRequestDto, expected);
+        setCreateBookRequestDtoToDto(TestUtil.createBookRequestDto(), expected);
 
         BookDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -123,7 +105,7 @@ class BookControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<BookDto> expected = List.of(bookDto);
+        List<BookDto> expected = List.of(TestUtil.createBookDto());
 
         List<BookDto> actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -144,7 +126,7 @@ class BookControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        BookDto expected = bookDto;
+        BookDto expected = TestUtil.createBookDto();
 
         BookDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -170,7 +152,7 @@ class BookControllerTest {
     @DisplayName("Update book by id")
     @WithMockUser(username = "admin", roles = "ADMIN")
     void updateBookById_BookExists_ReturnsBookDto() throws Exception {
-        String requestJson = objectMapper.writeValueAsString(updateBookRequestDto);
+        String requestJson = objectMapper.writeValueAsString(TestUtil.createUpdateBookRequestDto());
         MvcResult result = mockMvc.perform(
                         put(BOOK_URL + "/{id}", CORRECT_BOOK_ID)
                                 .content(requestJson)
@@ -179,7 +161,7 @@ class BookControllerTest {
                 .andReturn();
 
         BookDto expected = new BookDto();
-        setUpdateBookRequestDtoToDto(updateBookRequestDto, expected);
+        setUpdateBookRequestDtoToDto(TestUtil.createUpdateBookRequestDto(), expected);
 
         BookDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -207,7 +189,7 @@ class BookControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<BookDto> expected = List.of(bookDto);
+        List<BookDto> expected = List.of(TestUtil.createBookDto());
 
         List<BookDto> actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(),
@@ -216,34 +198,6 @@ class BookControllerTest {
 
         EqualsBuilder.reflectionEquals(expected, actual, "id", "title",
                 "author", "price", "isbn", "categoryIds");
-    }
-
-    private void initDto() {
-        createBookRequestDto = new CreateBookRequestDto(
-        BOOK_TITLE,
-        BOOK_AUTHOR,
-        BOOK_ISBN,
-        BOOK_PRICE,
-        BOOK_DESCRIPTION,
-        BOOK_COVER_IMAGE,
-        List.of(new Category(CORRECT_CATEGORY_ID)));
-
-        bookDto = new BookDto();
-        bookDto.setId(CORRECT_BOOK_ID);
-        bookDto.setTitle(BOOK_TITLE);
-        bookDto.setAuthor(BOOK_AUTHOR);
-        bookDto.setIsbn("978-161-729-045-10");
-        bookDto.setPrice(BigDecimal.valueOf(799));
-        bookDto.setCategoryIds(List.of(new Category(CORRECT_BOOK_ID)));
-
-        updateBookRequestDto = new UpdateBookRequestDto(
-                UPDATE_BOOK_REQUEST_DTO_TITLE,
-                UPDATE_BOOK_REQUEST_DTO_AUTHOR,
-                UPDATE_BOOK_REQUEST_DTO_ISBN,
-                UPDATE_BOOK_REQUEST_DTO_PRICE,
-                UPDATE_BOOK_REQUEST_DTO_DESCRIPTION,
-                UPDATE_BOOK_REQUEST_DTO_COVER_IMAGE,
-                List.of(new Category(CORRECT_CATEGORY_ID)));
     }
 
     private void setCreateBookRequestDtoToDto(CreateBookRequestDto createBookRequestDto,

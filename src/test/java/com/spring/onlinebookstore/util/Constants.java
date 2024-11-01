@@ -1,4 +1,4 @@
-package com.spring.onlinebookstore;
+package com.spring.onlinebookstore.util;
 
 import com.spring.onlinebookstore.model.Category;
 import java.math.BigDecimal;
