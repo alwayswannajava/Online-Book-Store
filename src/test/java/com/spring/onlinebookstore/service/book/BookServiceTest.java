@@ -9,6 +9,7 @@ import static com.spring.onlinebookstore.Constants.BOOK_PRICE;
 import static com.spring.onlinebookstore.Constants.BOOK_TITLE;
 import static com.spring.onlinebookstore.Constants.CORRECT_BOOK_ID;
 import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE;
 import static com.spring.onlinebookstore.Constants.INCORRECT_BOOK_ID;
 import static com.spring.onlinebookstore.Constants.INCORRECT_CATEGORY_ID;
 import static com.spring.onlinebookstore.Constants.SEARCH_BOOK_REQUEST_DTO_AUTHOR;
@@ -18,7 +19,6 @@ import static com.spring.onlinebookstore.Constants.UPDATE_BOOK_REQUEST_DTO_TITLE
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -124,7 +124,7 @@ class BookServiceTest {
         BookDto actual = bookService.save(createBookRequestDto);
 
         assertEquals(expected, actual);
-        verify(bookRepository, times(1)).save(book);
+        verify(bookRepository).save(book);
         verifyNoMoreInteractions(bookRepository, bookMapper);
     }
 
@@ -138,7 +138,7 @@ class BookServiceTest {
         List<BookDto> actual = bookService.findAll(pageRequest);
 
         assertEquals(expected, actual);
-        verify(bookRepository, times(1)).findAll(pageRequest);
+        verify(bookRepository).findAll(pageRequest);
         verifyNoMoreInteractions(bookRepository);
     }
 
@@ -152,7 +152,7 @@ class BookServiceTest {
         BookDto actual = bookService.findById(CORRECT_BOOK_ID);
 
         assertEquals(expected, actual);
-        verify(bookRepository, times(1)).findById(CORRECT_BOOK_ID);
+        verify(bookRepository).findById(CORRECT_BOOK_ID);
         verifyNoMoreInteractions(bookRepository);
     }
 
@@ -160,7 +160,13 @@ class BookServiceTest {
     @DisplayName("Test findById() non-existent book")
     void findById_BookNotExists_ShouldThrowEntityNotFoundException() {
         when(bookRepository.findById(INCORRECT_BOOK_ID)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> bookService.findById(INCORRECT_BOOK_ID));
+        EntityNotFoundException entityNotFoundException =
+                assertThrows(EntityNotFoundException.class,
+                        () -> bookService.findById(INCORRECT_BOOK_ID));
+
+        String actualMessage = entityNotFoundException.getMessage();
+
+        assertEquals(ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE, actualMessage);
     }
 
     @Test
@@ -176,15 +182,20 @@ class BookServiceTest {
         BookDto actual = bookService.update(CORRECT_BOOK_ID, updateBookRequestDto);
 
         assertEquals(expected, actual);
-        verify(bookRepository, times(1)).findById(CORRECT_BOOK_ID);
+        verify(bookRepository).findById(CORRECT_BOOK_ID);
     }
 
     @Test
     @DisplayName("Test update() non-existent book")
     void update_NonExistentBook_ShouldThrowEntityNotFoundException() {
         when(bookRepository.findById(INCORRECT_BOOK_ID)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () ->
-                bookService.update(INCORRECT_BOOK_ID, updateBookRequestDto));
+        EntityNotFoundException entityNotFoundException =
+                assertThrows(EntityNotFoundException.class, () ->
+                        bookService.update(INCORRECT_BOOK_ID, updateBookRequestDto));
+
+        String actualMessage = entityNotFoundException.getMessage();
+
+        assertEquals(ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE, actualMessage);
     }
 
     @Test
@@ -206,9 +217,9 @@ class BookServiceTest {
         List<BookDto> actual = bookService.search(searchParams, pageRequest);
 
         assertEquals(expected, actual);
-        verify(bookSpecificationBuilder, times(1)).build(searchParams);
-        verify(bookRepository, times(1)).findAll(bookSpecification, pageRequest);
-        verify(bookMapper, times(1)).toDto(book);
+        verify(bookSpecificationBuilder).build(searchParams);
+        verify(bookRepository).findAll(bookSpecification, pageRequest);
+        verify(bookMapper).toDto(book);
         verifyNoMoreInteractions(bookRepository, bookSpecificationBuilder, bookMapper);
     }
 
@@ -234,7 +245,7 @@ class BookServiceTest {
 
         assertEquals(expected, actual.getContent());
         assertEquals(expected.size(), actual.getTotalElements());
-        verify(bookRepository, times(1))
+        verify(bookRepository)
                 .findAllByCategoriesId(CORRECT_CATEGORY_ID, pageRequest);
         verifyNoMoreInteractions(bookRepository);
     }
@@ -249,7 +260,7 @@ class BookServiceTest {
                 .findAllByCategoriesId(INCORRECT_CATEGORY_ID, pageRequest);
 
         assertEquals(0, actual.getTotalElements());
-        verify(bookRepository, times(1))
+        verify(bookRepository)
                 .findAllByCategoriesId(INCORRECT_CATEGORY_ID, pageRequest);
         verifyNoMoreInteractions(bookRepository);
     }

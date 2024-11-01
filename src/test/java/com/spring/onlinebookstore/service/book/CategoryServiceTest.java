@@ -3,12 +3,12 @@ package com.spring.onlinebookstore.service.book;
 import static com.spring.onlinebookstore.Constants.CATEGORY_DESCRIPTION;
 import static com.spring.onlinebookstore.Constants.CATEGORY_NAME;
 import static com.spring.onlinebookstore.Constants.CORRECT_CATEGORY_ID;
+import static com.spring.onlinebookstore.Constants.ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE;
 import static com.spring.onlinebookstore.Constants.INCORRECT_CATEGORY_ID;
 import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION;
 import static com.spring.onlinebookstore.Constants.UPDATE_CATEGORY_REQUEST_DTO_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -60,7 +60,7 @@ public class CategoryServiceTest {
         );
 
         updateCategoryRequestDto = new UpdateCategoryRequestDto(
-            UPDATE_CATEGORY_REQUEST_DTO_NAME,
+                UPDATE_CATEGORY_REQUEST_DTO_NAME,
                 UPDATE_CATEGORY_REQUEST_DTO_DESCRIPTION
         );
 
@@ -95,7 +95,8 @@ public class CategoryServiceTest {
         CategoryDto actual = categoryService.save(createCategoryRequestDto);
 
         assertEquals(expected, actual);
-        verify(categoryRepository, times(1)).save(category);
+
+        verify(categoryRepository).save(category);
         verifyNoMoreInteractions(categoryRepository, categoryMapper);
     }
 
@@ -109,7 +110,7 @@ public class CategoryServiceTest {
         List<CategoryDto> actual = categoryService.findAll(pageRequest);
 
         assertEquals(expected, actual);
-        verify(categoryRepository, times(1)).findAll(pageRequest);
+        verify(categoryRepository).findAll(pageRequest);
         verifyNoMoreInteractions(categoryRepository);
     }
 
@@ -124,7 +125,7 @@ public class CategoryServiceTest {
         CategoryDto actual = categoryService.findById(CORRECT_CATEGORY_ID);
 
         assertEquals(expected, actual);
-        verify(categoryRepository, times(1)).findById(CORRECT_CATEGORY_ID);
+        verify(categoryRepository).findById(CORRECT_CATEGORY_ID);
         verifyNoMoreInteractions(categoryRepository);
     }
 
@@ -132,8 +133,13 @@ public class CategoryServiceTest {
     @DisplayName("Test findById() non-existent category")
     void findById_CategoryNotExists_ShouldThrowEntityNotFoundException() {
         when(categoryRepository.findById(INCORRECT_CATEGORY_ID)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class,
-                () -> categoryService.findById(INCORRECT_CATEGORY_ID));
+        EntityNotFoundException entityNotFoundException =
+                assertThrows(EntityNotFoundException.class,
+                        () -> categoryService.findById(INCORRECT_CATEGORY_ID));
+
+        String actualMessage = entityNotFoundException.getMessage();
+
+        assertEquals(ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE, actualMessage);
     }
 
     @Test
@@ -148,14 +154,19 @@ public class CategoryServiceTest {
         CategoryDto actual = categoryService.update(CORRECT_CATEGORY_ID, updateCategoryRequestDto);
 
         assertEquals(expected, actual);
-        verify(categoryRepository, times(1)).findById(CORRECT_CATEGORY_ID);
+        verify(categoryRepository).findById(CORRECT_CATEGORY_ID);
     }
 
     @Test
     @DisplayName("Test update() non-existent book")
     void update_NonExistentCategory_ShouldThrowEntityNotFoundException() {
         when(categoryRepository.findById(INCORRECT_CATEGORY_ID)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () ->
-                categoryService.update(INCORRECT_CATEGORY_ID, updateCategoryRequestDto));
+        EntityNotFoundException entityNotFoundException =
+                assertThrows(EntityNotFoundException.class, () ->
+                        categoryService.update(INCORRECT_CATEGORY_ID, updateCategoryRequestDto));
+
+        String actualMessage = entityNotFoundException.getMessage();
+
+        assertEquals(ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE, actualMessage);
     }
 }

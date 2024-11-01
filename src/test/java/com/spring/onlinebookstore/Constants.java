@@ -41,6 +41,13 @@ public final class Constants {
     public static final String BOOK_URL = "/books";
     public static final String CATEGORY_URL = "/categories";
 
+    public static final String ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_CATEGORY_MESSAGE =
+            "Category not found with id "
+            + INCORRECT_CATEGORY_ID;
+    public static final String ENTITY_NOT_FOUND_EXCEPTION_EXPECTED_BOOK_MESSAGE =
+            "Can't find book by id: "
+            + INCORRECT_BOOK_ID;
+
     private Constants() {
 
     }
