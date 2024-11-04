@@ -5,7 +5,10 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
 
 ## 🛠 Technologies & Tools
 - **Backend Framework**: Spring Boot 3.2.0
-- **Security**: Spring Security with JWT Authentication
+- **Security**: 
+  - Spring Security 
+  - JWT Authentication
+  - BCrypt password encoding
 - **Database**: 
   - MySQL 8.0.37
   - Spring Data JPA
@@ -21,6 +24,7 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
   - Maven
   - Lombok
   - MapStruct
+  - Spring Validation
 
 ## 🚀 Features
 ### User Management
@@ -55,7 +59,7 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
 1. Clone the repository
 ```bash
 git clone https://github.com/alwayswannajava/Online-Book-Store.git
-cd bookstore-api
+cd Online-Book-Store
 ```
 
 2. Configure environment variables
@@ -74,11 +78,11 @@ mvn clean install
 docker-compose up -d
 ```
 
-The API will be available at `http://localhost:8080`
+The API will be available at `http://localhost:8081`
 
 ### API Documentation
 After starting the application, you can access the Swagger UI at:
-`http://localhost:8080/swagger-ui.html`
+`http://localhost:8081/swagger-ui.html`
 
 ## 🎯 Development Challenges & Solutions
 
@@ -110,6 +114,7 @@ POST /api/auth/login - Login user
 GET    /api/books - Get all books
 POST   /api/books - Create new book (Admin only)
 GET    /api/books/{id} - Get book by ID
+GET    /api/books/search - Search book by params
 PUT    /api/books/{id} - Update book (Admin only)
 DELETE /api/books/{id} - Delete book (Admin only)
 ```
@@ -127,14 +132,8 @@ PUT    /api/cart/{itemId} - Update cart item quantity
 POST   /api/orders - Create order from cart
 GET    /api/orders - Get user's orders
 GET    /api/orders/{id} - Get order details
-PUT    /api/orders/{id}/status - Update order status (Admin only)
+PATCH    /api/orders/{id}/status - Update order status (Admin only)
 ```
-
-## 🤝 Contributing
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## 👥 Team
 - Mykhailo Kornukh - Backend Developer
