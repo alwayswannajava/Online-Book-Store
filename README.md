@@ -153,8 +153,15 @@ POST   /api/orders - Create order from cart
 PATCH    /api/orders/{id} - Update order status (Admin only)
 ```
 ## 📺 Visual 
+# Authentication collection 
+
 **Registration new user** 
 ![image](https://github.com/user-attachments/assets/994f7c5d-bb74-4f31-9a07-7e2cc8989062)
+
+**Login user**
+![image](https://github.com/user-attachments/assets/6fd5e00f-2270-49e5-922a-1132f1c1a042)
+
+
 
 ## 👥 Team
 - Mykhailo Kornukh - Backend Developer
