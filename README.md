@@ -152,6 +152,9 @@ GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item id an
 POST   /api/orders - Create order from cart
 PATCH    /api/orders/{id} - Update order status (Admin only)
 ```
+## 📺 Visual 
+**Registration new user** 
+![image](https://github.com/user-attachments/assets/994f7c5d-bb74-4f31-9a07-7e2cc8989062)
 
 ## 👥 Team
 - Mykhailo Kornukh - Backend Developer
