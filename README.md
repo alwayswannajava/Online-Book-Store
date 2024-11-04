@@ -37,7 +37,7 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
 - Search and filter functionality
 - Categories and authors management
 
-### Book Management
+### Category Management
 - CRUD operations for categories
 - Categories management
 
