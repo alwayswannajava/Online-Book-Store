@@ -106,7 +106,8 @@ Implementing a robust security system while maintaining ease of use was challeng
 ### Authentication Controller
 ```
 POST /api/auth/register - Register new user
-![image](https://github.com/user-attachments/assets/f0b035cc-12b0-4695-afce-216876106ea3)
+![image](https://github.com/user-attachments/assets/3a28eb03-cf0e-4a29-a547-daf44f914b3a)
+
 POST /api/auth/login - Login user
 ![image](https://github.com/user-attachments/assets/3e2eb75c-f90b-495a-8a53-841ec4c2731c)
 ```
