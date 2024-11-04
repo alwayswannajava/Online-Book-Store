@@ -168,7 +168,7 @@ PATCH    /api/orders/{id} - Update order status (Admin only)
 ![image](https://github.com/user-attachments/assets/6fd5e00f-2270-49e5-922a-1132f1c1a042)
 
 ## Book collection
-# Get all books
+**Get all books**
 ![image](https://github.com/user-attachments/assets/94e5afd8-1acd-4619-9d5b-37c983098202)
 
 **Get book by ID**
@@ -204,6 +204,36 @@ PATCH    /api/orders/{id} - Update order status (Admin only)
 
 **Delete category by ID**
 ![image](https://github.com/user-attachments/assets/8bbdaff8-f214-4aa4-afd7-3de8a9f3a1db)
+
+## Shopping cart collection
+**Get shopping cart**
+![image](https://github.com/user-attachments/assets/c8a53b60-fa09-4ab4-abbd-3700429265de)
+
+**Add item to shopping cart**
+![image](https://github.com/user-attachments/assets/3ca9f957-8510-4114-a2f7-869a14a7fce5)
+
+**Update item quantity in shopping cart**
+![image](https://github.com/user-attachments/assets/5b0956fe-b02b-49ff-9143-6d6aa35c94f2)
+
+**Delete item from shopping cart** 
+![image](https://github.com/user-attachments/assets/9bd9bbe4-83bc-4bec-b63f-dac0ac2f8cb4)
+
+## Order collection
+**Get user's orders**
+![image](https://github.com/user-attachments/assets/89107f00-f667-4ea5-ac3e-c8b932ec0ae7)
+
+**Get order items by order ID**
+![image](https://github.com/user-attachments/assets/d1e59aa6-4e97-4c51-9aa3-39ded1ad756d)
+
+**Get order item by order item ID and order ID** 
+![image](https://github.com/user-attachments/assets/d1999f6b-39be-47a7-8d3b-b93aff06e55b)
+
+**Create order**
+![image](https://github.com/user-attachments/assets/806548bb-ad79-4495-9f29-7aa780b6eebf)
+
+**Update order status**
+![image](https://github.com/user-attachments/assets/a5130c18-5e7e-45cb-afa6-0c43d07b766f)
+
 
 ## 👥 Team
 - Mykhailo Kornukh - Backend Developer
