@@ -84,6 +84,12 @@ docker-compose up -d
 
 The API will be available at `http://localhost:8081/api`
 
+You can use Basic Auth
+![image](https://github.com/user-attachments/assets/2e9fc0d7-87c4-4c12-b6a2-b5bd3c443c94)
+
+Or Bearer token 
+![image](https://github.com/user-attachments/assets/440c6186-b7f0-49d4-9b63-c223fe4f6b5f)
+
 ### API Documentation 
 After starting the application, you can access the Swagger UI at:
 `http://localhost:8081/api/swagger-ui.html`
@@ -161,7 +167,24 @@ PATCH    /api/orders/{id} - Update order status (Admin only)
 **Login user**
 ![image](https://github.com/user-attachments/assets/6fd5e00f-2270-49e5-922a-1132f1c1a042)
 
+# Category collection
+**Get all categories**
+![image](https://github.com/user-attachments/assets/3b83d4a7-5519-41bc-af95-7f1203bf98b2)
 
+**Get category by ID**
+![image](https://github.com/user-attachments/assets/a5068cdf-a2d4-4b59-a956-3b3e271759f5)
+
+**Get all books by category ID**
+![image](https://github.com/user-attachments/assets/ca79111a-5c64-4dc9-9f67-b651a5b7634c)
+
+**Create new category** 
+![image](https://github.com/user-attachments/assets/25a4cd38-47d7-4337-9476-48a64b02fa26)
+
+**Update category by ID**
+![image](https://github.com/user-attachments/assets/26f1c6d2-ae82-4f85-a5b2-2b45e8129f9a)
+
+**Delete category by ID**
+![image](https://github.com/user-attachments/assets/8bbdaff8-f214-4aa4-afd7-3de8a9f3a1db)
 
 ## 👥 Team
 - Mykhailo Kornukh - Backend Developer
