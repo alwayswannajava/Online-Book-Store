@@ -167,21 +167,51 @@ PATCH    /api/orders/{id} - Update order status (Admin only)
 **Login user**
 ![image](https://github.com/user-attachments/assets/6fd5e00f-2270-49e5-922a-1132f1c1a042)
 
+# Book collection
+**Get all books**
+![image](https://github.com/user-attachments/assets/e66890ed-51d3-4144-8fd5-8c2d9e6eb6fb)
+
+
+**Get book by ID**
+![image](https://github.com/user-attachments/assets/a5068cdf-a2d4-4b59-a956-3b3e271759f5)
+
+**Search book**
+![image](https://github.com/user-attachments/assets/ca79111a-5c64-4dc9-9f67-b651a5b7634c)
+
+**Create new book** 
+![image](https://github.com/user-attachments/assets/25a4cd38-47d7-4337-9476-48a64b02fa26)
+
+**Update book**
+![image](https://github.com/user-attachments/assets/26f1c6d2-ae82-4f85-a5b2-2b45e8129f9a)
+
+**Delete book by ID**
+![image](https://github.com/user-attachments/assets/8bbdaff8-f214-4aa4-afd7-3de8a9f3a1db)
+
 # Category collection
 **Get all categories**
 ![image](https://github.com/user-attachments/assets/3b83d4a7-5519-41bc-af95-7f1203bf98b2)
 
+
+
 **Get category by ID**
 ![image](https://github.com/user-attachments/assets/a5068cdf-a2d4-4b59-a956-3b3e271759f5)
+
+
 
 **Get all books by category ID**
 ![image](https://github.com/user-attachments/assets/ca79111a-5c64-4dc9-9f67-b651a5b7634c)
 
+
+
 **Create new category** 
 ![image](https://github.com/user-attachments/assets/25a4cd38-47d7-4337-9476-48a64b02fa26)
 
+
+
 **Update category by ID**
 ![image](https://github.com/user-attachments/assets/26f1c6d2-ae82-4f85-a5b2-2b45e8129f9a)
+
+
 
 **Delete category by ID**
 ![image](https://github.com/user-attachments/assets/8bbdaff8-f214-4aa4-afd7-3de8a9f3a1db)
