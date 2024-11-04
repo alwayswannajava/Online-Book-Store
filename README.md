@@ -159,3 +159,5 @@ PATCH    /api/orders/{id} - Update order status (Admin only)
 ## 📬 Contact
 For any questions or feedback, please reach out to:
 - Email: mykhailo.kornukh@gmail.com
+- Telegram: @miSHYRIK
+- Discord: stress_ful
