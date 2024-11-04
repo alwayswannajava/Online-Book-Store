@@ -10,7 +10,7 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
   - JWT Authentication
   - BCrypt password encoding
 - **Database**: 
-  - MySQL 8.0.37
+  - MySQL
   - Spring Data JPA
   - Liquibase for database migrations
 - **Documentation**: Swagger/OpenAPI 3.0
