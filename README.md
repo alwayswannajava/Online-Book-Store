@@ -105,37 +105,45 @@ Implementing a robust security system while maintaining ease of use was challeng
 
 ### Authentication Controller
 ```
-POST /api/auth/register - Register new user
-![image](https://github.com/user-attachments/assets/3a28eb03-cf0e-4a29-a547-daf44f914b3a)
-
+POST /api/auth/registration - Register new user
 POST /api/auth/login - Login user
-![image](https://github.com/user-attachments/assets/3e2eb75c-f90b-495a-8a53-841ec4c2731c)
 ```
 
 ### Book Controller
 ```
 GET    /api/books - Get all books
-POST   /api/books - Create new book (Admin only)
 GET    /api/books/{id} - Get book by ID
 GET    /api/books/search - Search book by params
+POST   /api/books - Create new book (Admin only)
 PUT    /api/books/{id} - Update book (Admin only)
 DELETE /api/books/{id} - Delete book (Admin only)
+```
+
+### Category Controller
+```
+GET    /api/categories - Get all categories
+GET    /api/categories/{id} - Get category by ID
+GET    /api/categories/{id}/books - Get all books by category ID
+POST   /api/categories - Create new category (Admin only)
+PUT    /api/categories/{id} - Update category (Admin only)
+DELETE /api/categories/{id} - Delete category (Admin only)
 ```
 
 ### Shopping Cart Controller
 ```
 GET    /api/cart - Get user's shopping cart
 POST   /api/cart - Add item to cart
-DELETE /api/cart/{itemId} - Remove item from cart
-PUT    /api/cart/{itemId} - Update cart item quantity
+PUT    /api/cart/items/{id} - Update cart item quantity
+DELETE /api/cart/items/{id} - Remove item from cart
 ```
 
 ### Order Controller
 ```
-POST   /api/orders - Create order from cart
 GET    /api/orders - Get user's orders
-GET    /api/orders/{id} - Get order details
-PATCH    /api/orders/{id}/status - Update order status (Admin only)
+GET    /api/orders/{id}/items - Get order items by order id
+GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item id and order id
+POST   /api/orders - Create order from cart
+PATCH    /api/orders/{id} - Update order status (Admin only)
 ```
 
 ## 👥 Team
