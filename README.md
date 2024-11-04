@@ -87,6 +87,9 @@ The API will be available at `http://localhost:8081`
 ### API Documentation
 After starting the application, you can access the Swagger UI at:
 `http://localhost:8081/swagger-ui.html`
+Credentials for swagger: 
+Login: user@example.com
+Password: 1234
 
 ## 🎯 Development Challenges & Solutions
 
