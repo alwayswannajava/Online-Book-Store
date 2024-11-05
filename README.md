@@ -100,7 +100,7 @@ When dealing with large book catalogs, we encountered performance issues with pa
 **Solution**: Implemented database indexing and query optimization using Spring Data JPA's and Specification API, resulting in a 70% improvement in response times.
 
 **Example**: Let's see how it works with not very large dataset, but it still appropriate for perfomance of using Spring Data JPA and Specification API. For example, we have created 200 records of books. Mainly, perfomance gets increase by pageable, because not all data
-show with pageable parameter, it's very simple. Moreover, Specification API allows us to build dynamical queries for books. As result, we can see perfomance increased by 70%
+will show with pageable parameter, it's very simple. Moreover, Specification API allows us to build dynamical queries for books. As result, we can see perfomance get increased by 70%
 
 | Records | Pageable + Specification | Time ms |
 | :---            |     :---:   |          ---:|
@@ -108,10 +108,10 @@ show with pageable parameter, it's very simple. Moreover, Specification API allo
 | 200      | On   | 294         |
 
 ## Request without pageable + specification API.
-![image](https://github.com/user-attachments/assets/9fd9815c-6916-4951-90da-7dbf03ae5b6c)
+![image](https://github.com/user-attachments/assets/25841ee8-6d47-4370-a91e-3e5e896a72aa)
 
 ## Request with pageable + specification API
-![image](https://github.com/user-attachments/assets/059b13eb-9063-46ef-80b0-e91d6e4c2d1c)
+![image](https://github.com/user-attachments/assets/0e342340-bbff-42ab-bd37-eed2b8efb2e0)
 
 ### Challenge 2: Concurrent Shopping Cart Updates
 Multiple users updating shopping carts simultaneously led to race conditions.
