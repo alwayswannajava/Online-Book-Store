@@ -101,10 +101,10 @@ When dealing with large book catalogs, we encountered performance issues with pa
 **Example**: Let's see how it works with not very large dataset, but it still appropriate for perfomance of using Spring Data JPA and Specification API. For example, we have created 200 records of books. Mainly, perfomance gets increase by pageable, because not all data
 show with pageable parameter, it's very simple. Moreover, Specification API allows us to build dynamical queries for books.
 
-| Records  | Pageable + Specification | | Time ms | 
-| ------------- | ------------- |
-| 200  | Off  | | 419  |
-| 200  | On  | | 294  |
+| Records | Pageable + Specification | Time ms |
+| :---            |     :---:   |          ---:|
+| 200      | Off  | 419         |
+| 200      | On   | 294         |
 
 ## Request without pageable + specification API.
 ![image](https://github.com/user-attachments/assets/9fd9815c-6916-4951-90da-7dbf03ae5b6c)
