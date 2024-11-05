@@ -156,28 +156,28 @@ GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item id an
 POST   /api/orders - Create order from cart
 PATCH    /api/orders/{id} - Update order status (Admin only)
 ```
-### 📺 Visual 
-## Authentication collection 
+## 📺 Visual 
+### Authentication collection 
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-423d22c9-14bb-42ee-a469-4bf86dde8005?action=share&source=copy-link&creator=25455394
 ```
 
-## Book collection
+### Book collection
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-3da2884b-74c6-48ec-aee2-983c1293d0a3?action=share&source=copy-link&creator=25455394
 ```
 
-## Category collection
+### Category collection
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-48358c00-d56f-4199-969c-18508b76f75a?action=share&source=copy-link&creator=25455394
 ```
 
-## Shopping cart collection
+### Shopping cart collection
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-f3785056-f941-40a4-bf6e-cc91c38c27a7?action=share&source=copy-link&creator=25455394
 ```
 
-## Order collection
+### Order collection
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-d9280bc4-b4b7-440a-8d02-6fb24eaf9fe5?action=share&source=copy-link&creator=25455394
 ```
