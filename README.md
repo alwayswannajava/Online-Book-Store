@@ -168,6 +168,9 @@ POST   /api/orders - Create order from cart
 PATCH  /api/orders/{id} - Update order status (Admin only)
 ```
 ## 📺 Visual 
+### Flowchart 
+![image](https://github.com/user-attachments/assets/c21bce53-0ad7-414a-b45a-434955b4ad63)
+
 ### Authentication collection 
 ```
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-423d22c9-14bb-42ee-a469-4bf86dde8005?action=share&source=copy-link&creator=25455394
