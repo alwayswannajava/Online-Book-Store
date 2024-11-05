@@ -105,7 +105,7 @@ When dealing with large book catalogs, we encountered performance issues with pa
 ### Challenge 2: Concurrent Shopping Cart Updates
 Multiple users updating shopping carts simultaneously led to race conditions.
 
-**Solution**: Implemented optimistic locking with version control and database transaction management to ensure data consistency.
+**Solution**: Implemented database transaction management to ensure data consistency.
 
 ### Challenge 3: Security Implementation
 Implementing a robust security system while maintaining ease of use was challenging.
@@ -154,7 +154,7 @@ GET    /api/orders - Get user's orders
 GET    /api/orders/{id}/items - Get order items by order id
 GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item id and order id
 POST   /api/orders - Create order from cart
-PATCH    /api/orders/{id} - Update order status (Admin only)
+PATCH  /api/orders/{id} - Update order status (Admin only)
 ```
 ## 📺 Visual 
 ### Authentication collection 
