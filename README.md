@@ -97,7 +97,20 @@ After starting the application, you can access the Swagger UI at:
 ### Challenge 1: Performance with Large Dataset
 When dealing with large book catalogs, we encountered performance issues with pagination and filtering. 
 
-**Solution**: Implemented database indexing and query optimization using Spring Data JPA's Specification API, resulting in a 70% improvement in response times.
+**Solution**: Implemented database indexing and query optimization using Spring Data JPA's and Specification API, resulting in a 70% improvement in response times.
+**Example**: Let's see how it works with not very large dataset, but it still appropriate for perfomance of using Spring Data JPA and Specification API. For example, we have created 200 records of books. Mainly, perfomance gets increase by pageable, because not all data
+show with pageable parameter, it's very simple. Moreover, Specification API allows us to build dynamical queries for books.
+
+| Records  | Pageable + Specification | | Time ms | 
+| ------------- | ------------- |
+| 200  | Off  | | 419  |
+| 200  | On  | | 294  |
+
+## Request without pageable + specification API.
+![image](https://github.com/user-attachments/assets/9fd9815c-6916-4951-90da-7dbf03ae5b6c)
+
+## Request with pageable + specification API
+![image](https://github.com/user-attachments/assets/059b13eb-9063-46ef-80b0-e91d6e4c2d1c)
 
 ### Challenge 2: Concurrent Shopping Cart Updates
 Multiple users updating shopping carts simultaneously led to race conditions.
@@ -180,7 +193,7 @@ https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872
 ```
 
 ## 👥 Team
-- Mykhailo Kornukh - Backend Developer
+- Mykhailo Kornukh - Junior Backend Developer
 
 ## 📬 Contact
 For any questions or feedback, please reach out to:
