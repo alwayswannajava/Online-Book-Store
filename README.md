@@ -107,7 +107,7 @@ will show with pageable parameter, it's very simple. Moreover, Specification API
 | 200      | Off  | 419         |
 | 200      | On   | 294         |
 
-### Request without pageable + specification API.
+### Request without pageable + specification API
 ![image](https://github.com/user-attachments/assets/25841ee8-6d47-4370-a91e-3e5e896a72aa)
 
 ### Request with pageable + specification API
