@@ -162,8 +162,8 @@ DELETE /api/cart/items/{id} - Remove item from cart
 ### Order Controller
 ```
 GET    /api/orders - Get user's orders
-GET    /api/orders/{id}/items - Get order items by order id
-GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item id and order id
+GET    /api/orders/{id}/items - Get order items by order ID
+GET    /api/orders/{orderId}/items/{itemId} - Get order item by order item ID and order ID
 POST   /api/orders - Create order from cart
 PATCH  /api/orders/{id} - Update order status (Admin only)
 ```
