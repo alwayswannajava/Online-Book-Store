@@ -91,6 +91,7 @@ The API will be available at `http://localhost:8081/api`
 ### API Documentation 
 After starting the application, you can access the Swagger UI at:
 `http://localhost:8081/api/swagger-ui.html`
+
 Or with AWS http://54.209.184.153/api/swagger-ui/index.html#/
 
 ## 🎯 Development Challenges & Solutions
