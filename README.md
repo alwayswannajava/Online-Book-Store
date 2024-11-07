@@ -82,8 +82,6 @@ docker-compose up -d
 
 The API will be available at `http://localhost:8081/api`
 
-Or with AWS http://54.209.184.153/api/swagger-ui/index.html#/
-
 **You can use Basic Auth**
 ![image](https://github.com/user-attachments/assets/2e9fc0d7-87c4-4c12-b6a2-b5bd3c443c94)
 
@@ -93,6 +91,7 @@ Or with AWS http://54.209.184.153/api/swagger-ui/index.html#/
 ### API Documentation 
 After starting the application, you can access the Swagger UI at:
 `http://localhost:8081/api/swagger-ui.html`
+Or with AWS http://54.209.184.153/api/swagger-ui/index.html#/
 
 ## 🎯 Development Challenges & Solutions
 
