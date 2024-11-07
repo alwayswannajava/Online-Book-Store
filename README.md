@@ -198,7 +198,7 @@ https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872
 https://web.postman.co/workspace/My-Workspace~094913b8-3731-4cce-8108-9a9ee90872b2/api/8847db5f-52c1-4c57-859b-79c52f435a47/collection/25455394-d9280bc4-b4b7-440a-8d02-6fb24eaf9fe5?action=share&source=copy-link&creator=25455394
 ```
 ### Video guide 
-https://youtu.be/8v3SBRrJ8QY
+https://youtu.be/nj0fF5vR2qU
 
 ## 👥 Team
 - Mykhailo Kornukh - Junior Backend Developer
