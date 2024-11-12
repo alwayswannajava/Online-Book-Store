@@ -60,8 +60,8 @@ Welcome to the Online Bookstore API! This project was born from the desire to cr
 
 1. Clone the repository
 ```bash
-git clone https://github.com/alwayswannajava/Online-Book-Store.git
-cd Online-Book-Store
+git clone https://github.com/alwayswannajava/jv-online-book-store.git
+cd online-book-store
 ```
 
 2. Configure environment variables
